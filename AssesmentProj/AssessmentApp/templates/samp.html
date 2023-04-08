@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tab Switching Example</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .tab {
+    display: none;
+}
+
+.tab.active {
+    display: block;
+}
+
+.tab-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tab-header button {
+    background-color: #ddd;
+    border: none;
+    color: #000;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.tab-header button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+    </style>
+</head>
+<body>
+	<div class="tab-header">
+		<button class="tab-button active" data-tab="ML">Machine Learning</button>
+		<button class="tab-button" data-tab="DA">Data Associate</button>
+		<button class="tab-button" data-tab="Java">Java</button>
+	</div>
+
+	<div class="tab-container">
+		<div class="tab active" id="ML">
+			<p>This is the content for ML.</p>
+
+
+            <div class="form container text-left border border-info border-2 p-3">
+                <form action="back" method="post">
+                    {% csrf_token %}
+                {% for ques,a,b,c,d in options %}
+                <div class="question mt-3">
+                    <h3>{{ques}}</h3>
+                </div>
+                <div class="options p-3">
+                    <input type="radio" name="{{ques}}" id="{{a}}" value="{{a}}">
+                    {{ a }}
+                    <input type="radio" name="{{ques}}" id="{{b}}" value="{{b}}">
+                    {{ b }}
+                    <input type="radio" name="{{ques}}" id="{{c}}" value="{{c}}">
+                    {{ c }}
+                    <input type="radio" name="{{ques}}" id="{{d}}" value="{{d}}">
+                    {{ d }}
+                </div>
+                <br>
+                {% endfor %}
+                <button class="btn btn-outline-info btn-lg w-100" type="submit">Submit</button>
+              </form>
+            </div>
+            
+		</div>
+
+		<div class="tab" id="DA">
+			<p>This is the content for DA.</p>
+            <div class="form container text-left border border-info border-2 p-3">
+                <form action="back" method="post">
+                    {% csrf_token %}
+                {% for ques,a,b,c,d in options %}
+                <div class="question mt-3">
+                    <h3>{{ques}}</h3>
+                </div>
+                <div class="options p-3">
+                    <input type="radio" name="{{ques}}" id="{{a}}" value="{{a}}">
+                    {{ a }}
+                    <input type="radio" name="{{ques}}" id="{{b}}" value="{{b}}">
+                    {{ b }}
+                    <input type="radio" name="{{ques}}" id="{{c}}" value="{{c}}">
+                    {{ c }}
+                    <input type="radio" name="{{ques}}" id="{{d}}" value="{{d}}">
+                    {{ d }}
+                </div>
+                <br>
+                {% endfor %}
+                <button class="btn btn-outline-info btn-lg w-100" type="submit">Submit</button>
+              </form>
+            </div>
+		</div>
+
+		<div class="tab" id="Java">
+			<p>This is the content for Java.</p>
+            <div class="form container text-left border border-info border-2 p-3">
+                <form action="back" method="post">
+                    {% csrf_token %}
+                {% for ques,a,b,c,d in options %}
+                <div class="question mt-3">
+                    <h3>{{ques}}</h3>
+                </div>
+                <div class="options p-3">
+                    <input type="radio" name="{{ques}}" id="{{a}}" value="{{a}}">
+                    {{ a }}
+                    <input type="radio" name="{{ques}}" id="{{b}}" value="{{b}}">
+                    {{ b }}
+                    <input type="radio" name="{{ques}}" id="{{c}}" value="{{c}}">
+                    {{ c }}
+                    <input type="radio" name="{{ques}}" id="{{d}}" value="{{d}}">
+                    {{ d }}
+                </div>
+                <br>
+                {% endfor %}
+                <button class="btn btn-outline-info btn-lg w-100" type="submit">Submit</button>
+              </form>
+            </div>
+		</div>
+	</div>
+
+	<script>
+		// Get all the tab buttons
+		var tabButtons = document.querySelectorAll('.tab-button');
+
+		// Loop through each button and add a click event listener
+		tabButtons.forEach(function(button) {
+			button.addEventListener('click', function() {
+				// Get the ID of the tab to show from the data-tab attribute
+				var tabToShow = this.getAttribute('data-tab');
+
+				// Get all the tabs and loop through them
+				var tabs = document.querySelectorAll('.tab');
+				tabs.forEach(function(tab) {
+					// If this is the tab to show, add the active class, otherwise remove it
+					if (tab.id === tabToShow) {
+						tab.classList.add('active');
+					} else {
+						tab.classList.remove('active');
+					}
+				});
+
+				// Get all the tab buttons and loop through them
+				tabButtons.forEach(function(button) {
+					// If this is the button for the tab to show, add the active class, otherwise remove it
+					if (button.getAttribute('data-tab') === tabToShow) {
+						button.classList.add('active');
+					} else {
+						button.classList.remove('active');
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
